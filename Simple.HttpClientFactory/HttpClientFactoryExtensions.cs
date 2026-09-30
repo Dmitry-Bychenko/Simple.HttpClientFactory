@@ -16,7 +16,7 @@ public static class HttpClientFactoryExtensions {
     /// Creates an <see cref="IHttpClientFactory"/> that returns the specified <see cref="HttpClient"/> instance for all requests.
     /// </summary>
     /// <param name="originalClient">The <see cref="HttpClient"/> instance to return for all requests.</param>
-    /// <returns></returns>
+    /// <returns>An <see cref="IHttpClientFactory"/> that returns the specified <see cref="HttpClient"/> instance for all requests.</returns>
     public static ClientHttpClientFactory CreateFromClient(HttpClient originalClient) {
       ArgumentNullException.ThrowIfNull(originalClient);
 

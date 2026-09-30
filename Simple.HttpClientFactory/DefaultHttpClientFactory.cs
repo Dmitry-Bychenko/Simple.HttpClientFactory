@@ -9,7 +9,7 @@ public sealed class DefaultHttpClientFactory : IHttpClientFactory {
   private static readonly TimeSpan ConnectionLifeTime = TimeSpan.FromMinutes(15);
 
   private static readonly Lazy<SocketsHttpHandler> HttpClientHandlerBuilder = new(() => new() {
-    AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate | DecompressionMethods.Brotli,
+    AutomaticDecompression = DecompressionMethods.All,
     CookieContainer = new CookieContainer(),
     Credentials = CredentialCache.DefaultCredentials,
     PooledConnectionLifetime = ConnectionLifeTime
@@ -19,5 +19,6 @@ public sealed class DefaultHttpClientFactory : IHttpClientFactory {
   /// Creates a new <see cref="HttpClient"/> instance with a shared <see cref="SocketsHttpHandler"/>.
   /// </summary>
   /// <param name="name">The name of the client to create. This parameter is ignored.</param>
-  public HttpClient CreateClient(string name) => new HttpClient(HttpClientHandlerBuilder.Value, false);
+  /// <returns>A new <see cref="HttpClient"/> instance.</returns>
+  public HttpClient CreateClient(string name) => new(HttpClientHandlerBuilder.Value, false);
 }

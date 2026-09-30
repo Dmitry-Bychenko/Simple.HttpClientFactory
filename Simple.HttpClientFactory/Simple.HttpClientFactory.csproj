@@ -37,7 +37,9 @@
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<RepositoryUrl>https://github.com/Dmitry-Bychenko/Simple.HttpClientFactory</RepositoryUrl>
 	<RepositoryType>git</RepositoryType>
-	<Authors>Dmitry Bychenko</Authors>
+	<Authors>Dmitrii Bychenko</Authors>
+	<Copyright>Copyright (c) 2026 by Dmitrii Bychenko</Copyright>
+	<PackageTags>HttpClientFactory</PackageTags>
   </PropertyGroup>
 
   <!-- Dependencies -->
