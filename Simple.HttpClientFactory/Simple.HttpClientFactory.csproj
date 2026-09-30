@@ -35,6 +35,7 @@
 	<Description>A simple and lightweight HttpClientFactory implementation for .NET</Description>
 	<PackageProjectUrl>https://github.com/Dmitry-Bychenko/Simple.HttpClientFactory</PackageProjectUrl>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<PackageIcon>icon.png</PackageIcon>
 	<RepositoryUrl>https://github.com/Dmitry-Bychenko/Simple.HttpClientFactory</RepositoryUrl>
 	<RepositoryType>git</RepositoryType>
 	<Authors>Dmitrii Bychenko</Authors>
@@ -45,6 +46,11 @@
   <!-- Dependencies -->
   <ItemGroup>
 	<PackageReference Include="Microsoft.Extensions.Http" Version="10.0.12" />
+  </ItemGroup>
+
+  <!-- Package Icon -->
+  <ItemGroup>
+	<None Include="icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>
