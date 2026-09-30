@@ -1,0 +1,23 @@
+﻿using System.Net;
+
+namespace Simple.HttpClientFactory;
+
+/// <summary>
+/// A default implementation of <see cref="IHttpClientFactory"/> that creates <see cref="HttpClient"/> instances with a shared <see cref="SocketsHttpHandler"/>.
+/// </summary>
+public sealed class DefaultHttpClientFactory : IHttpClientFactory {
+  private static readonly TimeSpan ConnectionLifeTime = TimeSpan.FromMinutes(15);
+
+  private static readonly Lazy<SocketsHttpHandler> HttpClientHandlerBuilder = new(() => new() {
+    AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate | DecompressionMethods.Brotli,
+    CookieContainer = new CookieContainer(),
+    Credentials = CredentialCache.DefaultCredentials,
+    PooledConnectionLifetime = ConnectionLifeTime
+  });
+
+  /// <summary>
+  /// Creates a new <see cref="HttpClient"/> instance with a shared <see cref="SocketsHttpHandler"/>.
+  /// </summary>
+  /// <param name="name">The name of the client to create. This parameter is ignored.</param>
+  public HttpClient CreateClient(string name) => new HttpClient(HttpClientHandlerBuilder.Value, false);
+}
