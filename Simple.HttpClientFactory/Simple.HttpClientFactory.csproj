@@ -1,24 +1,48 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <!-- Basic Project Properties -->
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <IncludeSymbols>True</IncludeSymbols>
+	<TargetFramework>net10.0</TargetFramework>
+	<LangVersion>latest</LangVersion>
+	<OutputType>Library</OutputType>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+  <!-- Code Generation & Language Features -->
+  <PropertyGroup>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+  <!-- Build & Analysis Settings -->
+  <PropertyGroup>
+	<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+	<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	<WarningLevel>9999</WarningLevel>
   </PropertyGroup>
 
-  <ItemGroup>	
+  <!-- Package & Publishing Settings -->
+  <PropertyGroup>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<IncludeSymbols>True</IncludeSymbols>
+	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <!-- NuGet Package Metadata -->
+  <PropertyGroup>
+	<PackageId>Simple.HttpClientFactory</PackageId>
+	<Title>Simple.HttpClientFactory</Title>
+	<Description>A simple and lightweight HttpClientFactory implementation for .NET</Description>
+	<PackageProjectUrl>https://github.com/Dmitry-Bychenko/Simple.HttpClientFactory</PackageProjectUrl>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<RepositoryUrl>https://github.com/Dmitry-Bychenko/Simple.HttpClientFactory</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<Authors>Dmitry Bychenko</Authors>
+  </PropertyGroup>
+
+  <!-- Dependencies -->
+  <ItemGroup>
 	<PackageReference Include="Microsoft.Extensions.Http" Version="10.0.12" />
-  </ItemGroup>	  
+  </ItemGroup>
 
 </Project>
