@@ -11,7 +11,41 @@ public sealed class ClientHttpClientFactory : IHttpClientFactory {
   private sealed class ForwardingHandler(HttpClient Inner) : HttpMessageHandler {
     /// <inheritdoc/>
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken) =>
-      Inner.SendAsync(request, cancellationToken);
+      Inner.SendAsync(MarkUnsent(request), cancellationToken);
+
+    private static HttpRequestMessage MarkUnsent(HttpRequestMessage request) {
+      var field = typeof(HttpRequestMessage)
+        .GetField("_sendStatus", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+      if (field is not null) {
+        field.SetValue(request, 0);
+      }
+
+      return request;
+    }
+
+    public static async Task<HttpRequestMessage> Clone(HttpRequestMessage request) {
+      var clone = new HttpRequestMessage(request.Method, request.RequestUri) {
+        Version = request.Version
+      };
+
+      if (request.Content != null) {
+        var ms = new MemoryStream();
+        await request.Content.CopyToAsync(ms);
+        ms.Position = 0;
+        clone.Content = new StreamContent(ms);
+
+        request.Content.Headers.ToList().ForEach(header => clone.Content.Headers.TryAddWithoutValidation(header.Key, header.Value));
+      }
+
+      request.Options.ToList().ForEach(option => clone.Options.TryAdd(option.Key, option.Value));
+
+      request.Headers
+          .ToList()
+          .ForEach(header => clone.Headers.TryAddWithoutValidation(header.Key, header.Value));
+
+      return clone;
+    }
   }
 
   /// <summary>
