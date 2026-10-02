@@ -1,8 +1,4 @@
-﻿using WireMock.RequestBuilders;
-using WireMock.ResponseBuilders;
-using WireMock.Server;
-
-namespace Simple.HttpClientFactory.Test;
+﻿namespace Simple.HttpClientFactory.Test;
 
 public sealed class DefaultHttpClientFactoryTest {
 
@@ -19,8 +15,7 @@ public sealed class DefaultHttpClientFactoryTest {
     var response = await client.GetAsync($"{server.Url}/test", TestContext.Current.CancellationToken);
 
     // Assert
-    Assert.True(response.IsSuccessStatusCode);
-    Assert.Equal("OK", await response.Content.ReadAsStringAsync(TestContext.Current.CancellationToken));
+    await HttpTestHelper.AssertResponse(response);
   }
 
   [Fact]
