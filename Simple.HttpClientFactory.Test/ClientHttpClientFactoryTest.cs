@@ -1,8 +1,4 @@
-﻿using WireMock.RequestBuilders;
-using WireMock.ResponseBuilders;
-using WireMock.Server;
-
-namespace Simple.HttpClientFactory.Test;
+﻿namespace Simple.HttpClientFactory.Test;
 
 public sealed class ClientHttpClientFactoryTest {
 
