@@ -9,7 +9,7 @@ public sealed class DefaultHttpClientFactoryTest {
   [Fact]
   public async Task CreateClient_ValidHttpClient() {
     // Arrange
-    using var server = CreateServer();
+    using var server = HttpTestHelper.CreateServer();
 
     var factory = new DefaultHttpClientFactory();
 
@@ -26,7 +26,7 @@ public sealed class DefaultHttpClientFactoryTest {
   [Fact]
   public async Task CreateClient_SecondCreation_ValidHttpClient() {
     // Arrange
-    using var server = CreateServer();
+    using var server = HttpTestHelper.CreateServer();
 
     var factory = new DefaultHttpClientFactory();
 
@@ -40,25 +40,11 @@ public sealed class DefaultHttpClientFactoryTest {
     var response = await client.GetAsync($"{server.Url}/test", TestContext.Current.CancellationToken);
 
     // Assert
-    Assert.True(response.IsSuccessStatusCode);
-    Assert.Equal("OK", await response.Content.ReadAsStringAsync(TestContext.Current.CancellationToken));
+    await HttpTestHelper.AssertResponse(response);
 
     var firstHandler = first.GetType().GetField("_handler", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(client) as SocketsHttpHandler;
     var secondHandler = client.GetType().GetField("_handler", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.GetValue(client) as SocketsHttpHandler;
 
     Assert.Equal(firstHandler, secondHandler);
-  }
-
-  private static WireMockServer CreateServer() {
-    var server = WireMockServer.Start();
-
-    server.Given(Request
-      .Create()
-      .WithPath("/test"))
-      .RespondWith(Response.Create()
-      .WithStatusCode(200)
-      .WithBody("OK"));
-
-    return server;
   }
 }

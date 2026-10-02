@@ -1,4 +1,6 @@
-﻿namespace Simple.HttpClientFactory;
+﻿using System.Reflection;
+
+namespace Simple.HttpClientFactory;
 
 /// <summary>
 /// A factory that creates <see cref="HttpClient"/> instances that share the same underlying <see cref="HttpMessageHandler"/>.
@@ -10,41 +12,20 @@ public sealed class ClientHttpClientFactory : IHttpClientFactory {
   /// <param name="Inner">The <see cref="HttpClient"/> instance to forward requests to.</param>
   private sealed class ForwardingHandler(HttpClient Inner) : HttpMessageHandler {
     /// <inheritdoc/>
-    protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken) =>
-      Inner.SendAsync(MarkUnsent(request), cancellationToken);
+    protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken) =>
+      await Inner.SendAsync(await MarkUnsent(request), cancellationToken);
 
-    private static HttpRequestMessage MarkUnsent(HttpRequestMessage request) {
-      var field = typeof(HttpRequestMessage)
-        .GetField("_sendStatus", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+    private static readonly FieldInfo? SendStatusField = typeof(HttpRequestMessage)
+        .GetField("_sendStatus", BindingFlags.NonPublic | BindingFlags.Instance);
 
-      if (field is not null) {
-        field.SetValue(request, 0);
+    private static async ValueTask<HttpRequestMessage> MarkUnsent(HttpRequestMessage request) {
+      if (SendStatusField is not null) {
+        SendStatusField.SetValue(request, 0);
+
+        return request;
       }
 
-      return request;
-    }
-
-    public static async Task<HttpRequestMessage> Clone(HttpRequestMessage request) {
-      var clone = new HttpRequestMessage(request.Method, request.RequestUri) {
-        Version = request.Version
-      };
-
-      if (request.Content != null) {
-        var ms = new MemoryStream();
-        await request.Content.CopyToAsync(ms);
-        ms.Position = 0;
-        clone.Content = new StreamContent(ms);
-
-        request.Content.Headers.ToList().ForEach(header => clone.Content.Headers.TryAddWithoutValidation(header.Key, header.Value));
-      }
-
-      request.Options.ToList().ForEach(option => clone.Options.TryAdd(option.Key, option.Value));
-
-      request.Headers
-          .ToList()
-          .ForEach(header => clone.Headers.TryAddWithoutValidation(header.Key, header.Value));
-
-      return clone;
+      return await request.DeepClone();
     }
   }
 

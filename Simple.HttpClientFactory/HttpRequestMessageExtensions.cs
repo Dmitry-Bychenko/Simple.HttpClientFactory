@@ -1,13 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace Simple.HttpClientFactory;
 
-namespace Simple.HttpClientFactory;
-
+/// <summary>
+/// 
+/// </summary>
 public static class HttpRequestMessageExtensions
 {
     extension(HttpRequestMessage request)
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public async Task<HttpRequestMessage> DeepClone(CancellationToken cancellationToken = default)
         {
             var clone = new HttpRequestMessage(request.Method, request.RequestUri)
@@ -41,7 +45,7 @@ public static class HttpRequestMessageExtensions
                 clone.Options.TryAdd(option.Key, option.Value);
 
             foreach (var header in request.Headers)
-                clone.Headers.TryAddWithoutValidation(header.Key, header.Value)
+                clone.Headers.TryAddWithoutValidation(header.Key, header.Value);
 
             return clone;
         }
