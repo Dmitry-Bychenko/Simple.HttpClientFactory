@@ -16,7 +16,7 @@ public sealed class ClientHttpClientFactory : IHttpClientFactory {
       await Inner.SendAsync(await MarkUnsent(request), cancellationToken);
 
     private static readonly FieldInfo? SendStatusField = typeof(HttpRequestMessage)
-        .GetField("_sendStatus", BindingFlags.NonPublic | BindingFlags.Instance);
+      .GetField("_sendStatus", BindingFlags.NonPublic | BindingFlags.Instance);
 
     private static async ValueTask<HttpRequestMessage> MarkUnsent(HttpRequestMessage request) {
       if (SendStatusField is not null) {
@@ -25,6 +25,7 @@ public sealed class ClientHttpClientFactory : IHttpClientFactory {
         return request;
       }
 
+      // If we can't access the private field, we can create a deep clone of the request instead.
       return await request.DeepClone();
     }
   }
