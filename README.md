@@ -1,3 +1,40 @@
+# Intuition
+
+As we know http connection usage is [quite complex](https://learn.microsoft.com/en-us/dotnet/fundamentals/networking/http/httpclient-guidelines) in c#: 
+1. If we create `HttpClient` on each connection (`HttpClient` is not a sigleton) we have ports leakage
+2. If `HttpClient` is a sigleton, we din't react on DNS changes. It can be OK for command line utility, but not for ASP program.
+3. We can use `IHttpClientFactory`, but it is an overshoot for a simple routine when we want to connect and perform a single query.
+
+This simple package is created to make http creation easier, especially when we want to create a library class which wants http connection:
+```
+public class MyLibraryClass {
+  private readonly m_ConnectionFactory;
+
+  // If we want to create library class instance within ASP we provide connection factory
+  public MyLibraryClass(IHttpConnectionFactory connectionFactory) {
+    m_ConnectionFactory = connectionFactory;
+  }
+
+  // If we want to create library class instance for a standalone routine which provides singleton connection
+  public MyLibraryClass(IHttpConnection connection) {
+    m_ConnectionFactory = IHttpClientFactory.FactoryFromClient(connection);
+  }
+
+  //  If we want to create library class instance for a standalone routine which has no predefined connection
+  public MyLibraryClass() {
+    m_ConnectionFactory = IHttpClientFactory.DefaultFactory;
+  }
+
+  ...
+
+  private async Task Perform() {
+    // Business as usual
+    using var http = m_ConnectionFactory.CreateClient();
+    ...
+  }  
+}
+```
+
 # Simple.HttpClientFactory
 
 A lightweight and simple implementation of `IHttpClientFactory` for .NET that provides flexible HTTP client creation with shared handler management.
@@ -27,7 +64,7 @@ Creates HTTP clients with a shared `SocketsHttpHandler` that includes:
 
 ```csharp
 var factory = new DefaultHttpClientFactory();
-var client = factory.CreateClient("myClient");
+using var client = factory.CreateClient("myClient");
 var response = await client.GetAsync("https://example.com");
 ```
 
@@ -36,8 +73,10 @@ Wraps an existing `HttpClient` instance and creates new clients that share its u
 
 ```csharp
 var originalClient = new HttpClient();
+...
 var factory = new ClientHttpClientFactory(originalClient);
-var newClient = factory.CreateClient("derived");
+
+using var newClient = factory.CreateClient("derived");
 // Both clients share the same handler
 ```
 
@@ -50,7 +89,8 @@ var factory = IHttpClientFactory.DefaultFactory;
 
 // Create a factory from an existing client
 var myClient = new HttpClient();
-var factory = myClient.FactoryFromClient();
+...
+var factory = IHttpClientFactory.FactoryFromClient(myClient);
 ```
 
 ## Installation
@@ -76,54 +116,6 @@ Or add directly to your `.csproj`:
 
 - .NET 10.0 or higher
 - Microsoft.Extensions.Http 10.0.12 or compatible
-
-## Quick Start
-
-### Basic Usage
-
-```csharp
-using Simple.HttpClientFactory;
-
-// Create a simple HTTP client factory
-var factory = new DefaultHttpClientFactory();
-
-// Create HTTP clients as needed
-var client1 = factory.CreateClient("api-client");
-var client2 = factory.CreateClient("webhook-client");
-
-// Use normally
-var response = await client1.GetAsync("https://api.example.com/data");
-var content = await response.Content.ReadAsStringAsync();
-```
-
-### With Existing HttpClient
-
-```csharp
-// Configure a client with custom settings
-var configuredClient = new HttpClient();
-configuredClient.DefaultRequestHeaders.Add("User-Agent", "MyApp/1.0");
-configuredClient.DefaultRequestHeaders.Add("Authorization", "Bearer token123");
-
-// Wrap it in a factory
-var factory = new ClientHttpClientFactory(configuredClient);
-
-// All created clients inherit the configuration
-var derivedClient = factory.CreateClient("service");
-```
-
-### Dependency Injection (if needed)
-
-```csharp
-// Register in your DI container
-services.AddSingleton<IHttpClientFactory>(new DefaultHttpClientFactory());
-
-// Inject into your services
-public class MyService {
-    public MyService(IHttpClientFactory factory) {
-        _client = factory.CreateClient("my-service");
-    }
-}
-```
 
 ## Architecture
 
@@ -157,20 +149,6 @@ The default factory uses these settings:
 | Auto Decompression | All | gzip, deflate, brotli support |
 | Credentials | Default | Uses system credentials |
 | Cookie Container | Shared | Maintains cookies across requests |
-
-Modify by creating a custom implementation:
-
-```csharp
-public class CustomHttpClientFactory : IHttpClientFactory {
-    public HttpClient CreateClient(string name) {
-        var handler = new SocketsHttpHandler {
-            PooledConnectionLifetime = TimeSpan.FromMinutes(5),
-            // ... other settings
-        };
-        return new HttpClient(handler);
-    }
-}
-```
 
 ## Testing
 
@@ -208,11 +186,6 @@ dotnet test
 - Legacy system integration
 - Testing and mocking scenarios
 
-❌ **Consider Alternatives For:**
-- Large enterprise applications with complex middleware
-- Advanced resilience patterns (Polly integration in HttpClientFactory)
-- Multiple named clients with DI
-
 ## API Reference
 
 ### DefaultHttpClientFactory
@@ -245,33 +218,6 @@ public static class HttpClientFactoryExtensions
 }
 ```
 
-## Performance Considerations
-
-- **Handler Reuse**: Both implementations reuse the underlying `HttpMessageHandler`, reducing memory allocation
-- **Lazy Initialization**: `DefaultHttpClientFactory` uses `Lazy<T>` for thread-safe singleton pattern
-- **Connection Pooling**: Default 100-second connection lifetime balances resource usage with performance
-- **No Reflection Overhead**: Extension methods are compile-time optimized
-
-## Troubleshooting
-
-### Issue: "Cannot access private field '_sendStatus'"
-
-**Solution**: The `ClientHttpClientFactory` gracefully falls back to deep-cloning the request if reflection is unavailable (e.g., with AOTC). This is handled automatically.
-
-### Issue: Connections timing out
-
-**Solution**: Adjust the connection lifetime:
-```csharp
-public class CustomFactory : IHttpClientFactory {
-    public HttpClient CreateClient(string name) {
-        var handler = new SocketsHttpHandler {
-            PooledConnectionLifetime = TimeSpan.FromSeconds(60)
-        };
-        return new HttpClient(handler);
-    }
-}
-```
-
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
@@ -294,24 +240,6 @@ dotnet build
 
 # Pack NuGet
 dotnet pack -c Release
-```
-
-## Project Structure
-
-```
-Simple.HttpClientFactory/
-├── DefaultHttpClientFactory.cs          # Default implementation
-├── ClientHttpClientFactory.cs           # Client wrapping implementation
-├── HttpClientFactoryExtensions.cs       # Extension methods
-├── HttpRequestMessageExtensions.cs      # Helper extensions
-└── icon.png                             # Package icon
-
-Simple.HttpClientFactory.Test/
-├── DefaultHttpClientFactoryTest.cs      # Default factory tests
-├── ClientHttpClientFactoryTest.cs       # Client factory tests
-├── HttpClientFactoryExtensionsTest.cs   # Extension method tests
-├── HttpRequestMessageExtensionsTest.cs  # Helper tests
-└── HttpTestHelper.cs                    # WireMock test utilities
 ```
 
 ## License
