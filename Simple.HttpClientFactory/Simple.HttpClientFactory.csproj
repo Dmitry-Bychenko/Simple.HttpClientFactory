@@ -5,6 +5,7 @@
 	<TargetFramework>net10.0</TargetFramework>
 	<LangVersion>latest</LangVersion>
 	<OutputType>Library</OutputType>
+	<Version>1.0.0</Version>
   </PropertyGroup>
 
   <!-- Code Generation & Language Features -->
@@ -26,6 +27,7 @@
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<IncludeSymbols>True</IncludeSymbols>
 	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	<DebugType>embedded</DebugType>
   </PropertyGroup>
 
   <!-- NuGet Package Metadata -->
@@ -40,7 +42,14 @@
 	<RepositoryType>git</RepositoryType>
 	<Authors>Dmitrii Bychenko</Authors>
 	<Copyright>Copyright (c) 2026 by Dmitrii Bychenko</Copyright>
-	<PackageTags>HttpClientFactory</PackageTags>
+	<PackageTags>HttpClientFactory;IHttpClientFactory;HTTP;Client</PackageTags>
+	<PackageReleaseNotes>Initial stable release
+- DefaultHttpClientFactory implementation with shared SocketsHttpHandler
+- ClientHttpClientFactory for wrapping existing HttpClient instances
+- Extension methods for easy factory creation
+- Full unit test coverage with WireMock.Net
+- Comprehensive documentation and examples</PackageReleaseNotes>
+	<MinClientVersion>5.0</MinClientVersion>
   </PropertyGroup>
 
   <!-- Dependencies -->
