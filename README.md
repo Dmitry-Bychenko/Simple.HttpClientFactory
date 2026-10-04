@@ -35,7 +35,7 @@ public class MyLibraryClass {
 }
 ```
 
-# Simple.HttpClientFactory
+# Plain.HttpClientFactory
 
 A lightweight and simple implementation of `IHttpClientFactory` for .NET that provides flexible HTTP client creation with shared handler management.
 
@@ -44,7 +44,7 @@ A lightweight and simple implementation of `IHttpClientFactory` for .NET that pr
 
 ## Overview
 
-**Simple.HttpClientFactory** is a minimal NuGet package that offers alternative implementations of `IHttpClientFactory` for scenarios where you need simple, predictable HTTP client creation without the complexity of full dependency injection setup.
+**Plain.HttpClientFactory** is a minimal NuGet package that offers alternative implementations of `IHttpClientFactory` for scenarios where you need simple, predictable HTTP client creation without the complexity of full dependency injection setup.
 
 This package solves common HTTP client management challenges:
 - ✅ Shared `SocketsHttpHandler` with proper pooling and decompression
@@ -97,18 +97,18 @@ var factory = IHttpClientFactory.FactoryFromClient(myClient);
 
 **NuGet Package Manager:**
 ```bash
-Install-Package Simple.HttpClientFactory
+Install-Package Plain.HttpClientFactory
 ```
 
 **.NET CLI:**
 ```bash
-dotnet add package Simple.HttpClientFactory
+dotnet add package Plain.HttpClientFactory
 ```
 
 Or add directly to your `.csproj`:
 ```xml
 <ItemGroup>
-  <PackageReference Include="Simple.HttpClientFactory" Version="*" />
+  <PackageReference Include="Plain.HttpClientFactory" Version="*" />
 </ItemGroup>
 ```
 
@@ -168,7 +168,7 @@ dotnet test
 
 ## Differences from Microsoft.Extensions.Http
 
-| Feature | Simple.HttpClientFactory | Microsoft.Extensions.Http |
+| Feature | Plain.HttpClientFactory | Microsoft.Extensions.Http |
 |---------|--------------------------|--------------------------|
 | Setup | Minimal, no DI needed | Requires full DI setup |
 | Handler Sharing | Automatic (Lazy<T>) | Manual or DI-based |
@@ -226,8 +226,8 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ```bash
 # Clone the repository
-git clone https://github.com/Dmitry-Bychenko/Simple.HttpClientFactory.git
-cd Simple.HttpClientFactory
+git clone https://github.com/Dmitry-Bychenko/Plain.HttpClientFactory.git
+cd Plain.HttpClientFactory
 
 # Restore dependencies
 dotnet restore

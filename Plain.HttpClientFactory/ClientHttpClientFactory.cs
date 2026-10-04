@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Simple.HttpClientFactory;
+namespace Plain.HttpClientFactory;
 
 /// <summary>
 /// A factory that creates <see cref="HttpClient"/> instances that share the same underlying <see cref="HttpMessageHandler"/>.

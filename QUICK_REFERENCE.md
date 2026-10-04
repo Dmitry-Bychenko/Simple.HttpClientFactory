@@ -1,4 +1,4 @@
-# Quick Reference: Publishing Simple.HttpClientFactory
+# Quick Reference: Publishing Plain.HttpClientFactory
 
 ## ⚡ 3-Minute Quick Start
 
@@ -12,7 +12,7 @@ dotnet test
 
 # 2. Generate package
 dotnet pack -c Release -o bin
-# Creates: bin/Release/Simple.HttpClientFactory.1.0.0.nupkg
+# Creates: bin/Release/Plain.HttpClientFactory.1.0.0.nupkg
 ```
 
 ### Publish to NuGet.org
@@ -21,7 +21,7 @@ dotnet pack -c Release -o bin
 
 # 2. Push package
 $apiKey = "oy2a...YOUR_KEY...here"
-$pkg = "bin/Release/Simple.HttpClientFactory.1.0.0.nupkg"
+$pkg = "bin/Release/Plain.HttpClientFactory.1.0.0.nupkg"
 
 dotnet nuget push $pkg `
   --source https://api.nuget.org/v3/index.json `
@@ -29,7 +29,7 @@ dotnet nuget push $pkg `
   --skip-duplicate
 
 # 3. Wait 10-30 minutes for NuGet.org to process
-# 4. Check: https://www.nuget.org/packages/Simple.HttpClientFactory
+# 4. Check: https://www.nuget.org/packages/Plain.HttpClientFactory
 ```
 
 ### After Publishing
@@ -38,7 +38,7 @@ dotnet nuget push $pkg `
 git tag v1.0.0
 git push origin v1.0.0
 
-# Create GitHub Release on https://github.com/Dmitry-Bychenko/Simple.HttpClientFactory/releases
+# Create GitHub Release on https://github.com/Dmitry-Bychenko/Plain.HttpClientFactory/releases
 # Add release notes from CHANGELOG.md
 ```
 
@@ -63,15 +63,15 @@ git push origin v1.0.0
 ## 📦 What's in Your Package
 
 ```
-Simple.HttpClientFactory.1.0.0.nupkg
+Plain.HttpClientFactory.1.0.0.nupkg
 ├── lib/net10.0/
-│   ├── Simple.HttpClientFactory.dll      (compiled library)
-│   └── Simple.HttpClientFactory.xml      (documentation)
+│   ├── Plain.HttpClientFactory.dll      (compiled library)
+│   └── Plain.HttpClientFactory.xml      (documentation)
 ├── icon.png                              (package icon)
 ├── README.md                             (from repo root)
 └── [Content_Types].xml                   (NuGet metadata)
 
-Simple.HttpClientFactory.1.0.0.snupkg      (symbols package)
+Plain.HttpClientFactory.1.0.0.snupkg      (symbols package)
 └── src/                                   (embedded source)
 ```
 
@@ -99,11 +99,11 @@ Simple.HttpClientFactory.1.0.0.snupkg      (symbols package)
 
 ## 🚀 Verify After Publishing
 
-1. ✅ Check package on: https://www.nuget.org/packages/Simple.HttpClientFactory
+1. ✅ Check package on: https://www.nuget.org/packages/Plain.HttpClientFactory
 2. ✅ Icon displays correctly
 3. ✅ Description renders properly
 4. ✅ Tags are searchable
-5. ✅ Can install: `dotnet add package Simple.HttpClientFactory`
+5. ✅ Can install: `dotnet add package Plain.HttpClientFactory`
 6. ✅ IntelliSense works in consuming projects
 
 ---
@@ -122,11 +122,11 @@ Simple.HttpClientFactory.1.0.0.snupkg      (symbols package)
 
 | Property | Value |
 |----------|-------|
-| **Package ID** | Simple.HttpClientFactory |
+| **Package ID** | Plain.HttpClientFactory |
 | **Version** | 1.0.0 |
 | **License** | MIT |
 | **Author** | Dmitry Bychenko |
-| **Repository** | https://github.com/Dmitry-Bychenko/Simple.HttpClientFactory |
+| **Repository** | https://github.com/Dmitry-Bychenko/Plain.HttpClientFactory |
 | **Target Framework** | .NET 10.0 |
 | **Primary Dependency** | Microsoft.Extensions.Http 10.0.12 |
 | **Tests** | 7 tests, all passing ✅ |
@@ -146,17 +146,17 @@ dotnet test
 dotnet pack -c Release -o bin
 
 # Push to NuGet
-dotnet nuget push "bin/Release/Simple.HttpClientFactory.1.0.0.nupkg" `
+dotnet nuget push "bin/Release/Plain.HttpClientFactory.1.0.0.nupkg" `
   -s https://api.nuget.org/v3/index.json `
   -k your-api-key
 
 # Install Locally (for testing)
-dotnet add package Simple.HttpClientFactory `
+dotnet add package Plain.HttpClientFactory `
   --version 1.0.0 `
   --source ./bin/Release
 
 # List Local Packages
-dotnet package search Simple.HttpClientFactory
+dotnet package search Plain.HttpClientFactory
 ```
 
 ---

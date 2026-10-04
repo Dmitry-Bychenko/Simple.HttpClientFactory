@@ -2,7 +2,7 @@
 using WireMock.ResponseBuilders;
 using WireMock.Server;
 
-namespace Simple.HttpClientFactory.Test;
+namespace Plain.HttpClientFactory.Test;
 
 /// <summary>
 /// Provides helper methods for testing HTTP clients using WireMock.Net.

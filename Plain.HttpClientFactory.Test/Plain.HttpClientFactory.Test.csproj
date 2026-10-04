@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <!-- Basic Project Properties -->
   <PropertyGroup>
@@ -37,13 +37,14 @@
 
   <!-- Project References -->
   <ItemGroup>
-	<ProjectReference Include="..\Simple.HttpClientFactory\Simple.HttpClientFactory.csproj" />
+	<ProjectReference Include="..\Plain.HttpClientFactory\Plain.HttpClientFactory.csproj" />
   </ItemGroup>
 
   <!-- Global Usings -->
   <ItemGroup>
 	<Using Include="Xunit" />
-	<Using Include="Simple.HttpClientFactory" />
+	<Using Include="Plain.HttpClientFactory" />
   </ItemGroup>
 
 </Project>
+

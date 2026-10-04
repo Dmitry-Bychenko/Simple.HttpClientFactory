@@ -59,6 +59,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-**Repository:** https://github.com/Dmitry-Bychenko/Simple.HttpClientFactory  
-**Issues:** https://github.com/Dmitry-Bychenko/Simple.HttpClientFactory/issues  
+**Repository:** https://github.com/Dmitry-Bychenko/Plain.HttpClientFactory
+**Issues:** https://github.com/Dmitry-Bychenko/Plain.HttpClientFactory/issues
 **License:** MIT

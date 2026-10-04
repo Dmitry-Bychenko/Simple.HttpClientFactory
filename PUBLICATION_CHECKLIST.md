@@ -1,4 +1,4 @@
-# Pre-Publication Checklist for Simple.HttpClientFactory v1.0.0
+# Pre-Publication Checklist for Plain.HttpClientFactory v1.0.0
 
 ## Code Quality ✅
 - [x] All unit tests pass
@@ -17,7 +17,7 @@
 
 ## Package Metadata ✅
 - [x] Version set to 1.0.0
-- [x] Package ID: Simple.HttpClientFactory
+- [x] Package ID: Plain.HttpClientFactory
 - [x] Description: Clear and concise
 - [x] Author: Dmitry Bychenko
 - [x] License: MIT
@@ -41,7 +41,7 @@
 3. [ ] Run: `dotnet test`
 4. [ ] Generate package: `dotnet pack -c Release`
 5. [ ] Inspect .nupkg file contents
-6. [ ] Test installation in a new project: `nuget install Simple.HttpClientFactory -OutputDirectory .\packages`
+6. [ ] Test installation in a new project: `nuget install Plain.HttpClientFactory -OutputDirectory .\packages`
 7. [ ] Verify package on NuGet.org staging (if available)
 
 ### Git & Repository
@@ -55,12 +55,12 @@
 2. [ ] Obtain API key from https://www.nuget.org/account/apikeys
 3. [ ] Dry-run publish to verify package:
    ```powershell
-   dotnet nuget push "bin/Release/Simple.HttpClientFactory.1.0.0.nupkg" \
+   dotnet nuget push "bin/Release/Plain.HttpClientFactory.1.0.0.nupkg" \
      --source https://api.nuget.org/v3/index.json \
      --api-key YOUR_API_KEY \
      --skip-duplicate
    ```
-4. [ ] Publish to NuGet: `dotnet nuget push "bin/Release/Simple.HttpClientFactory.1.0.0.nupkg" -s https://api.nuget.org/v3/index.json -k YOUR_API_KEY`
+4. [ ] Publish to NuGet: `dotnet nuget push "bin/Release/Plain.HttpClientFactory.1.0.0.nupkg" -s https://api.nuget.org/v3/index.json -k YOUR_API_KEY`
 5. [ ] Monitor package processing on NuGet.org
 6. [ ] Verify package appears in search results
 
@@ -85,10 +85,10 @@ dotnet test
 dotnet pack -c Release
 
 # List package contents
-tar -tf bin/Release/Simple.HttpClientFactory.1.0.0.nupkg
+tar -tf bin/Release/Plain.HttpClientFactory.1.0.0.nupkg
 
 # Push to NuGet
-dotnet nuget push "bin/Release/Simple.HttpClientFactory.1.0.0.nupkg" `
+dotnet nuget push "bin/Release/Plain.HttpClientFactory.1.0.0.nupkg" `
   --source https://api.nuget.org/v3/index.json `
   --api-key [YOUR_KEY_HERE]
 
@@ -106,7 +106,7 @@ After publishing, verify:
 - [ ] README renders properly
 - [ ] License shows as MIT
 - [ ] Tags are searchable
-- [ ] Can install with `dotnet add package Simple.HttpClientFactory`
+- [ ] Can install with `dotnet add package Plain.HttpClientFactory`
 - [ ] IntelliSense works in consuming projects
 - [ ] Symbol package (.snupkg) is available for debugging
 - [ ] Source Link enables step-through debugging
@@ -122,4 +122,4 @@ For issues or questions about the publication process:
 
 **Status:** Ready for publication ✅  
 **Date**: [Current Date]  
-**Package**: Simple.HttpClientFactory v1.0.0
+**Package**: Plain.HttpClientFactory v1.0.0

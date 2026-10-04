@@ -1,6 +1,6 @@
-# Publishing Guide for Simple.HttpClientFactory
+# Publishing Guide for Plain.HttpClientFactory
 
-This guide walks you through publishing Simple.HttpClientFactory to NuGet.org.
+This guide walks you through publishing Plain.HttpClientFactory to NuGet.org.
 
 ## Pre-Publication Verification
 
@@ -43,11 +43,11 @@ cd test_nuget_install
 dotnet new console
 
 # Add the local package
-dotnet add package Simple.HttpClientFactory --version 1.0.0 --source ../Simple.HttpClientFactory/bin/Release
+dotnet add package Plain.HttpClientFactory --version 1.0.0 --source ../Plain.HttpClientFactory/bin/Release
 
 # Test usage
 $content = @"
-using Simple.HttpClientFactory;
+using Plain.HttpClientFactory;
 
 var factory = new DefaultHttpClientFactory();
 var client = factory.CreateClient("test");
@@ -93,14 +93,14 @@ dotnet nuget update source nuget.org -u "__USERNAME__" -p "YOUR_API_KEY" --store
 
 ```powershell
 # Navigate to project directory
-cd C:\Works\CS\Simple.HttpClientFactory
+cd C:\Works\CS\Plain.HttpClientFactory
 
 # Build release package
 dotnet pack -c Release -o bin
 
 # Push to NuGet.org
 $apiKey = "YOUR_API_KEY_HERE"
-$packagePath = "bin\Release\Simple.HttpClientFactory.1.0.0.nupkg"
+$packagePath = "bin\Release\Plain.HttpClientFactory.1.0.0.nupkg"
 
 dotnet nuget push $packagePath `
   --source https://api.nuget.org/v3/index.json `
@@ -108,14 +108,14 @@ dotnet nuget push $packagePath `
   --skip-duplicate
 
 # You should see:
-# Pushing Simple.HttpClientFactory.1.0.0.nupkg to 'https://api.nuget.org/v3/index.json'...
+# Pushing Plain.HttpClientFactory.1.0.0.nupkg to 'https://api.nuget.org/v3/index.json'...
 # Your package was pushed.
 ```
 
 ### Step 5: Monitor Publishing
 
 1. Wait 5-10 minutes for processing
-2. Visit: https://www.nuget.org/packages/Simple.HttpClientFactory
+2. Visit: https://www.nuget.org/packages/Plain.HttpClientFactory
 3. Verify:
    - Package appears in search
    - Version 1.0.0 is displayed
@@ -130,7 +130,7 @@ The `.snupkg` file enables debugging with NuGet symbol servers:
 
 ```powershell
 # The .snupkg should be auto-generated
-$symbolPackage = "bin\Release\Simple.HttpClientFactory.1.0.0.snupkg"
+$symbolPackage = "bin\Release\Plain.HttpClientFactory.1.0.0.snupkg"
 
 dotnet nuget push $symbolPackage `
   --source https://api.nuget.org/v3/index.json `
@@ -151,7 +151,7 @@ Then on GitHub:
 1. Go to Releases
 2. Click "Draft a new release"
 3. Select tag "v1.0.0"
-4. Title: "Simple.HttpClientFactory 1.0.0"
+4. Title: "Plain.HttpClientFactory 1.0.0"
 5. Description: Copy content from CHANGELOG.md
 6. Publish release
 
@@ -210,7 +210,7 @@ git tag v1.0.1
 
 # 5. Pack and publish
 dotnet pack -c Release -o bin
-dotnet nuget push "bin\Release\Simple.HttpClientFactory.1.0.1.nupkg" -s https://api.nuget.org/v3/index.json -k YOUR_API_KEY
+dotnet nuget push "bin\Release\Plain.HttpClientFactory.1.0.1.nupkg" -s https://api.nuget.org/v3/index.json -k YOUR_API_KEY
 ```
 
 ## Semantic Versioning Guide
@@ -256,7 +256,7 @@ If you need to deprecate a version:
 
 ---
 
-**Package**: Simple.HttpClientFactory  
+**Package**: Plain.HttpClientFactory
 **Initial Version**: 1.0.0  
-**Repository**: https://github.com/Dmitry-Bychenko/Simple.HttpClientFactory  
+**Repository**: https://github.com/Dmitry-Bychenko/Plain.HttpClientFactory
 **License**: MIT

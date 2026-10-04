@@ -1,4 +1,4 @@
-﻿namespace Simple.HttpClientFactory.Test;
+﻿namespace Plain.HttpClientFactory.Test;
 
 public sealed class HttpRequestMessageExtensionsTest {
   [Fact]

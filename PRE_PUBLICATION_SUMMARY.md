@@ -2,9 +2,9 @@
 
 ## ✅ What's Been Completed
 
-### Project Configuration (Simple.HttpClientFactory.csproj)
+### Project Configuration (Plain.HttpClientFactory.csproj)
 - ✅ Version set to **1.0.0**
-- ✅ Package ID: `Simple.HttpClientFactory`
+- ✅ Package ID: `Plain.HttpClientFactory`
 - ✅ Comprehensive metadata (title, description, author, copyright)
 - ✅ Tags: `HttpClientFactory;IHttpClientFactory;HTTP;Client`
 - ✅ License: MIT (using `PackageLicenseExpression`)
@@ -67,7 +67,7 @@
 | Package Version | 1.0.0 |
 | Primary Dependency | Microsoft.Extensions.Http 10.0.12 |
 | License | MIT |
-| Repository | GitHub (https://github.com/Dmitry-Bychenko/Simple.HttpClientFactory) |
+| Repository | GitHub (https://github.com/Dmitry-Bychenko/Plain.HttpClientFactory) |
 | Test Coverage | 7 tests, all passing |
 | Documentation | 330 lines (README) + inline XML docs |
 | Package Contents | Binary, symbols, icon, docs |
@@ -85,12 +85,12 @@
 3. Run publish command:
    ```powershell
    dotnet pack -c Release -o bin
-   dotnet nuget push "bin\Release\Simple.HttpClientFactory.1.0.0.nupkg" `
+   dotnet nuget push "bin\Release\Plain.HttpClientFactory.1.0.0.nupkg" `
      --source https://api.nuget.org/v3/index.json `
      --api-key YOUR_API_KEY
    ```
 4. Wait 10-30 minutes for NuGet processing
-5. Verify on https://www.nuget.org/packages/Simple.HttpClientFactory
+5. Verify on https://www.nuget.org/packages/Plain.HttpClientFactory
 
 ### Post-Publishing
 1. Create Git tag: `git tag v1.0.0` and `git push origin v1.0.0`
@@ -106,7 +106,7 @@
 - `PUBLISHING_GUIDE.md` - Step-by-step publishing guide
 
 ### Modified Files:
-- `Simple.HttpClientFactory/Simple.HttpClientFactory.csproj`
+- `Plain.HttpClientFactory/Plain.HttpClientFactory.csproj`
   - Added `<Version>1.0.0</Version>`
   - Added `PackageReleaseNotes` with feature summary
   - Added enhanced `PackageTags`
@@ -115,8 +115,8 @@
 
 ### Existing Files (Already Good):
 - `README.md` - Comprehensive documentation ✅
-- `Simple.HttpClientFactory/**/*.cs` - Source code ✅
-- `Simple.HttpClientFactory.Test/**/*.cs` - Unit tests ✅
+- `Plain.HttpClientFactory/**/*.cs` - Source code ✅
+- `Plain.HttpClientFactory.Test/**/*.cs` - Unit tests ✅
 - `icon.png` - Package icon ✅
 
 ## 🎯 Quality Checklist
@@ -160,13 +160,13 @@
 - NuGet Documentation: https://docs.microsoft.com/en-us/nuget/
 - Semantic Versioning: https://semver.org/
 - GitHub Help: https://docs.github.com/
-- This repository: https://github.com/Dmitry-Bychenko/Simple.HttpClientFactory
+- This repository: https://github.com/Dmitry-Bychenko/Plain.HttpClientFactory
 
 ---
 
 ## Summary
 
-Your Simple.HttpClientFactory project is **ready for publication**! ✅
+Your Plain.HttpClientFactory project is **ready for publication**! ✅
 
 - ✅ Code quality verified (all tests pass)
 - ✅ Documentation completed

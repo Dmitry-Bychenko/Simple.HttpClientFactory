@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Simple.HttpClientFactory;
+namespace Plain.HttpClientFactory;
 
 /// <summary>
 /// A default implementation of <see cref="IHttpClientFactory"/> that creates <see cref="HttpClient"/> instances with a shared <see cref="SocketsHttpHandler"/>.

@@ -1,4 +1,4 @@
-﻿namespace Simple.HttpClientFactory;
+﻿namespace Plain.HttpClientFactory;
 
 /// <summary>
 /// Provides extension methods for <see cref="HttpRequestMessage"/>.

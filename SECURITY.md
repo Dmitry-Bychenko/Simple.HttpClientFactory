@@ -14,7 +14,7 @@ Instead, please report security issues responsibly using GitHub's **Private Vuln
 
 GitHub provides a secure way to report vulnerabilities:
 
-1. Visit the [Security tab](https://github.com/Dmitry-Bychenko/Simple.HttpClientFactory/security) of this repository
+1. Visit the [Security tab](https://github.com/Dmitry-Bychenko/Plain.HttpClientFactory/security) of this repository
 2. Click **"Report a vulnerability"**
 3. Fill out the vulnerability details form
 4. Submit your report

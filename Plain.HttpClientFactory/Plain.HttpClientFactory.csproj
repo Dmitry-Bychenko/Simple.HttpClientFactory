@@ -32,8 +32,8 @@
 
   <!-- NuGet Package Metadata -->
   <PropertyGroup>
-	<PackageId>Simple.HttpClientFactory</PackageId>
-	<Title>Simple.HttpClientFactory</Title>
+	<PackageId>Plain.HttpClientFactory</PackageId>
+	<Title>Plain.HttpClientFactory</Title>
 	<Description>A simple and lightweight HttpClientFactory implementation for .NET</Description>
 	<PackageProjectUrl>https://github.com/Dmitry-Bychenko/Simple.HttpClientFactory</PackageProjectUrl>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
